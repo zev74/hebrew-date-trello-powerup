@@ -7,12 +7,38 @@
   <body>
     <h1>Hebrew Date Helper Loaded</h1>
 
-    <!-- ✅ Trello Power-Up SDK (REQUIRED) -->
+    <!-- Trello SDK -->
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
 
-    <!-- Optional: Basic init -->
+    <!-- Power-Up logic -->
     <script>
-      window.TrelloPowerUp.initialize({});
+      window.TrelloPowerUp.initialize({
+        'card-badges': async function(t) {
+          console.log("Hebrew Date Helper badge triggered");
+
+          const card = await t.card('due');
+          if (!card.due) return [];
+
+          const date = new Date(card.due);
+          const url = `https://www.hebcal.com/converter?cfg=json&gy=${date.getFullYear()}&gm=${date.getMonth()+1}&gd=${date.getDate()}&g2h=1`;
+
+          try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const hebrewDate = data.hebrew;
+
+            return [{
+              text: hebrewDate,
+              color: 'blue',
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Jewish_Calendar_star.svg'
+            }];
+          } catch (err) {
+            console.error('Hebrew date fetch failed:', err);
+            return [];
+          }
+        }
+      });
     </script>
   </body>
 </html>
+
