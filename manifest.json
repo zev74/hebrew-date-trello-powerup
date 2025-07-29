@@ -1,0 +1,18 @@
+{
+  "name": "Hebrew Date Helper",
+  "description": "Displays Hebrew dates on Trello cards using due dates",
+  "author": "Your Name",
+  "capabilities": {
+    "card-badges": {
+      "url": "client.js"
+    }
+  },
+  "icon": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Jewish_Calendar_star.svg",
+    "width": 64,
+    "height": 64
+  },
+  "permissions": {
+    "api": true
+  }
+}
